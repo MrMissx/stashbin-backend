@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  stashbin:
+    container_name: stashbin
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      GIN_MODE: release
+      DB_URI:
+      PORTS: 8080
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
