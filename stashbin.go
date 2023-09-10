@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/gin-contrib/cors"
 	"github.com/mrmissx/stashbin-backend/controllers"
 	"github.com/mrmissx/stashbin-backend/models"
 	"github.com/mrmissx/stashbin-backend/utils"
@@ -14,6 +15,11 @@ import (
 func main() {
 	r := gin.Default()
 	r.SetTrustedProxies([]string{"127.0.0.1"})
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"GET", "POST"},
+		AllowHeaders: []string{"Origin"},
+	}))
 
 	log.Println("Connecting to database")
 	models.Connect()
