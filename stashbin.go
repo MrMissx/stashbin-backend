@@ -13,13 +13,17 @@ import (
 )
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
 	r.SetTrustedProxies([]string{"127.0.0.1"})
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"GET", "POST"},
 		AllowHeaders: []string{"Origin"},
 	}))
+	r.Use(gin.LoggerWithConfig(gin.LoggerConfig{
+		SkipPaths: []string{"/api/health"},
+	}))
+	r.Use(gin.Recovery())
 
 	log.Println("Connecting to database")
 	models.Connect()
