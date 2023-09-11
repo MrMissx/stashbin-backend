@@ -16,6 +16,8 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
+ENV GIN_MODE=release
+
 COPY --from=build /app/stashbin .
 
 CMD ["./stashbin"]
