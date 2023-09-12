@@ -32,7 +32,7 @@ func GetDocumentBySlug(c *gin.Context) {
 	}
 
 	c.JSON(
-		http.StatusCreated,
+		http.StatusOK,
 		response.NewResult(
 			"successfully retrieved document",
 			gin.H{"content": document.Content},
