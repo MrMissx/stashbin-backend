@@ -14,10 +14,11 @@ import (
 
 func main() {
 	r := gin.New()
+	r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"GET", "POST"},
-		AllowHeaders: []string{"Origin"},
+		AllowHeaders: []string{"Origin", "Content-Type"},
 	}))
 	r.Use(gin.LoggerWithConfig(gin.LoggerConfig{
 		SkipPaths: []string{"/api/health"},
@@ -29,9 +30,7 @@ func main() {
 	log.Println("Connected to database")
 
 	log.Println("Registering routes")
-	r.GET("/api/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "OK"})
-	})
+	r.GET("/api/health", controllers.HealthCheck)
 	// Document Routes
 	r.GET("/api/document", controllers.GetDocumentBySlug)
 	r.POST("/api/document", controllers.CreateDocument)
