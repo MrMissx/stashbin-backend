@@ -1,0 +1,120 @@
+@import "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap";
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #1b1e2b;
+  color: #fff;
+  font-family: Fira Code, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  flex-shrink: 0;
+  min-height: 2rem;
+  margin: 0 2rem;
+  padding: 0.5rem 0;
+  justify-content: space-between;
+}
+
+#brand {
+  font-size: x-large;
+  text-decoration: none;
+}
+
+#brand:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+#editor {
+  resize: none;
+  width: calc(100vw - 3rem);
+  background-color: #292d3e;
+  color: #d5e2e6;
+  padding: 1rem 1.5rem;
+  outline: none;
+  height: calc(100vh - 9rem);
+  font-size: 14px;
+}
+
+.content {
+  flex: 1;
+  background-color: #292d3e;
+  overflow-y: auto;
+  padding: 1rem 2rem;
+}
+
+.content a {
+  color: #e3b23c;
+}
+
+.content h1 {
+  font-size: 1.9rem;
+}
+
+.content h2 {
+  font-size: 1.6rem;
+}
+
+.content p {
+  font-size: 1.2rem;
+}
+
+.content pre {
+  background: #1e1e31;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  overflow: auto;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  max-height: 1.3rem;
+  margin: 0 2rem;
+  padding: 0.5rem 0;
+}
+
+footer a {
+  color: #d5e2e6;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #dda3b2;
+}
+
+::-webkit-input-placeholder {
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222635;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #353b59;
+  border-radius: 5px;
+}
+
+:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #d5e2e6;
+}

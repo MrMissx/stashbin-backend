@@ -45,6 +45,12 @@ func CreateDocument(c *gin.Context) {
 		return
 	}
 
+	// return redirect header for HTMX request
+	if c.GetHeader("HX-Request") == "true" {
+		c.Header("HX-Redirect", "/"+document.Slug)
+		return
+	}
+
 	c.JSON(
 		http.StatusCreated,
 		response.NewResult(

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>Stashbin</title>
+
+  {{ template "Meta.html" . }}
+</head>
+
+<body>
+  {{ template "Header.html" .}}
+  <form hx-post="/api/document" hx-ext="json-enc" hx-trigger="keydown[ctrlKey&&key=='s']">
+    <!-- <button type="submit">Submit</button> -->
+    <textarea id="editor" name="content"></textarea>
+  </form>
+  {{ template "Footer.html" .}}
+</body>
+
+</html>

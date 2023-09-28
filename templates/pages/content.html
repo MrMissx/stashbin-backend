@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title>Stashbin</title>
+  {{ template "Meta.html" . }}
+</head>
+
+<body>
+  <form hx-post="/api/document" hx-ext="json-enc">
+    <button type="submit">Submit</button>
+    <textarea name="content" cols="30" rows="10"></textarea>
+  </form>
+</body>
+
+</html>

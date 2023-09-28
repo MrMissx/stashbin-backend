@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/mrmissx/stashbin-backend/controllers"
-	"github.com/mrmissx/stashbin-backend/models"
 	"github.com/mrmissx/stashbin-backend/utils"
 
 	"github.com/gin-gonic/gin"
@@ -26,11 +25,21 @@ func main() {
 	}))
 	r.Use(gin.Recovery())
 
-	log.Println("Connecting to database")
-	models.Connect()
-	log.Println("Connected to database")
+	// log.Println("Connecting to database")
+	// models.Connect()
+	// log.Println("Connected to database")
 
 	log.Println("Registering routes")
+
+	r.Static("/static", "./static")
+	r.LoadHTMLGlob("templates/**/*")
+	// Page Routes
+	r.GET("/", controllers.Index)
+	r.GET("/:slug", controllers.ContentPage)
+	r.GET("/raw/:slug", controllers.RawPage)
+	r.GET("/about", controllers.AboutPage)
+
+	/// API Routes
 	r.GET("/api/health", controllers.HealthCheck)
 	// Document Routes
 	r.GET("/api/document", controllers.GetDocumentBySlug)
