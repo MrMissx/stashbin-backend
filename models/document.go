@@ -32,14 +32,15 @@ func insertDocument(document *Document, retry int) error {
 	return nil
 }
 
-func incrementViews(slug *string) {
-	DB.Model(&Document{}).Where("slug = ?", slug).Update("views", gorm.Expr("views + ?", 1))
-}
-
 // Save document to database with unique slug (key)
 // Retry 3 times if slug is duplicated
 func SaveDocument(document *Document) error {
 	return insertDocument(document, 0)
+}
+
+func incrementViews(document *Document) {
+	document.Views += 1
+	DB.Model(&document).Update("views", document.Views)
 }
 
 // Get document by slug (key) that are assigned to it
@@ -47,11 +48,11 @@ func GetDocumentBySlug(slug string) (*Document, error) {
 
 	var document Document
 
-	go incrementViews(&slug)
-
 	if err := DB.Where("slug = ?", slug).First(&document).Error; err != nil {
 		return nil, err
 	}
+
+	go incrementViews(&document)
 
 	return &document, nil
 }
