@@ -16,10 +16,12 @@ func Connect() {
 		log.Fatal("DB_URI is not set")
 	}
 
+	log.Println("Connecting to database...")
 	db, err := gorm.Open(postgres.Open(uri), &gorm.Config{TranslateError: true})
 	if err != nil {
 		panic(err)
 	}
+	log.Println("Database connected!")
 
 	log.Println("Migrating database...")
 	if err := db.AutoMigrate(&Document{}); err != nil {
