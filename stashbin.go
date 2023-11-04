@@ -26,9 +26,7 @@ func main() {
 	}))
 	r.Use(gin.Recovery())
 
-	log.Println("Connecting to database")
 	models.Connect()
-	log.Println("Connected to database")
 
 	log.Println("Registering routes")
 	r.GET("/api/health", controllers.HealthCheck)

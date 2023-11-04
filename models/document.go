@@ -9,10 +9,11 @@ import (
 )
 
 type Document struct {
-	Id        uint       `gorm:"primary_key;auto_increment" json:"id"`
-	Slug      string     `gorm:"type:varchar(10);unique;not null" json:"key"`
-	Content   string     `gorm:"type:text;not null" json:"content"`
-	CreatedAt *time.Time `gorm:"not null" json:"date"`
+	Id        uint       `json:"id" gorm:"primary_key;auto_increment"`
+	Slug      string     `json:"key" gorm:"type:varchar(10);unique;not null;unqiueIndex"`
+	Content   string     `json:"content" gorm:"type:text;not null"`
+	CreatedAt *time.Time `json:"date" gorm:"not null"`
+	Views     uint       `json:"views" gorm:"type:int;not null;default:0"`
 }
 
 func (Document) TableName() string {
@@ -31,6 +32,10 @@ func insertDocument(document *Document, retry int) error {
 	return nil
 }
 
+func incrementViews(slug *string) {
+	DB.Model(&Document{}).Where("slug = ?", slug).Update("views", gorm.Expr("views + ?", 1))
+}
+
 // Save document to database with unique slug (key)
 // Retry 3 times if slug is duplicated
 func SaveDocument(document *Document) error {
@@ -41,6 +46,8 @@ func SaveDocument(document *Document) error {
 func GetDocumentBySlug(slug string) (*Document, error) {
 
 	var document Document
+
+	go incrementViews(&slug)
 
 	if err := DB.Where("slug = ?", slug).First(&document).Error; err != nil {
 		return nil, err
