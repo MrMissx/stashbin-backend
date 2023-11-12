@@ -12,7 +12,7 @@ COPY . .
 RUN go build -o stashbin
 
 
-FROM golang:1.21-alpine
+FROM alpine:3
 
 WORKDIR /app
 
